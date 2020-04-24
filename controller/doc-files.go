@@ -13,7 +13,7 @@ func DocFiles(c *gin.Context) {
 	//获取用户文件使用明细数量
 	fileDetailUse := model.GetFileDetailUse(user.FileStoreId)
 	//获取文档类型文件
-	docFiles := model.GetTypeFile(1)
+	docFiles := model.GetTypeFile(1, user.FileStoreId)
 
 	c.HTML(http.StatusOK, "doc-files.html", gin.H{
 		"user":          user,

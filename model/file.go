@@ -112,8 +112,8 @@ func GetFileDetailUse(fileStoreId int) map[string]int64 {
 }
 
 //根据文件类型获取文件
-func GetTypeFile(fileType int) (files []MyFile) {
-	mysql.DB.Find(&files, "type = ?", fileType)
+func GetTypeFile(fileType, fileStoreId int) (files []MyFile) {
+	mysql.DB.Find(&files, "file_store_id = ? and type = ?", fileStoreId, fileType)
 	return
 }
 
