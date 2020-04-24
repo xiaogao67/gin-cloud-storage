@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" name="viewport">
-	<title>莫提网盘-帮助</title>
+	<title>风间网盘-帮助</title>
 
 	<link rel="stylesheet" href="/static/u-admin/dist/modules/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" href="/static/u-admin/dist/modules/ionicons/css/ionicons.min.css">
@@ -19,8 +19,8 @@
 <div id="app">
 	<div class="main-wrapper">
 		<div class="navbar-bg"></div>
-		<div th:replace="commons/bar::#top"></div>
-		<div th:replace="commons/bar::#sidebar(currUri='help',statistics = ${statistics})"></div>
+		{{template "menu-top" .}}
+		{{template "menu-sidebar" .}}
 
 		<div class="main-content">
 			<section class="section">
@@ -41,13 +41,13 @@
 										</div>
 										<div class="accordion-body collapse" id="panel-body-1" data-parent="#accordion">
 											<p style="text-indent: 2em">
-												莫提网盘（英文名：moti-cloud）是由个人开发者推出的在线存储服务。用户可以轻松将自己的文件上传到网盘上，
+												风间网盘 是由个人开发者推出的在线存储服务。用户可以轻松将自己的文件上传到网盘上，
 												并可跨终端随时随地查看和分享。 无需注册，使用QQ一键登录，注重用户的隐私。 具有安全、简约、高效、不限速的特点。
 												其主要特点如下：
 											</p>
 											<p>
 												1. 提供多元化数据存储服务，用户可自由管理网盘存储文件。<br>
-												2. 提供个性化分享功能，用户通过分享二维码或链接的方式实现文件共享。<br>
+												2. 提供个性化分享功能，通过提取码分享文件。<br>
 												3. 可跨终端随时随地管理、下载、分享文件。<br>
 												4. 文件的分类查看与管理。
 											</p>
@@ -60,10 +60,10 @@
 										<div class="accordion-body collapse" id="panel-body-2" data-parent="#accordion">
 											<p style="text-indent: 2em">
 												由于服务器的压力，普通用户最多有1024MB（1GB）的存储空间。
-												且上传的当个文件最大为50MB。莫提网盘保证用户下载文件的速度不作限制。
+												风间网盘保证用户下载文件的速度不作限制。
 											</p>
 											<hr>
-											<small>纯粹个人开发,生活太难了。</small>
+											<small></small>
 										</div>
 									</div>
 									<div class="accordion">
@@ -72,16 +72,16 @@
 										</div>
 										<div class="accordion-body collapse" id="panel-body-3" data-parent="#accordion">
 											<p style="text-indent: 2em">
-												为了能够带来更加便捷简约的体验，莫提网盘放弃了传统的登录方式，使用腾讯QQ的第三方登录。
+												为了能够带来更加便捷简约的体验，风间网盘放弃了传统的登录方式，使用腾讯QQ的第三方登录。
 												这样可以有效的解决用户因长期未使用而忘记账号密码的情况。同时也可以将用户的账号安全交给
 												更加权威、安全系数更高的腾讯QQ团队。
 											</p>
 											<p style="text-indent: 2em">
-												于此同时，莫提网盘在注册也做到了便捷简约，甚至用户到感觉不到具有注册的存在。
-												实际上，在用户第一次登录莫提网盘的时候，便完成了注册的逻辑。
+												于此同时，风间网盘在注册也做到了便捷简约，甚至用户到感觉不到具有注册的存在。
+												实际上，在用户第一次登录风间网盘的时候，便完成了注册的逻辑。
 											</p>
 											<hr>
-											<small>莫提网盘承诺不会挖掘用户的任何隐私信息。</small>
+											<small>风间网盘承诺不会挖掘用户的任何隐私信息。</small>
 										</div>
 									</div>
 									<div class="accordion">
@@ -109,7 +109,7 @@
 										</div>
 										<div class="accordion-body collapse" id="panel-body-5" data-parent="#accordion">
 											<p style="text-indent: 2em">
-												莫提网盘还支持新建文件夹、重命名文件夹、删除文件夹（同时删除里面的文件）、重命名文件、
+												风间网盘还支持新建文件夹、重命名文件夹、删除文件夹（同时删除里面的文件）、重命名文件、
 												文件的分享、文件的删除等，这些你都可以使用鼠标右键菜单实现（移动端长按）。
 											</p>
 										</div>
@@ -120,14 +120,9 @@
 										</div>
 										<div class="accordion-body collapse" id="panel-body-6" data-parent="#accordion">
 											<p>
-												个人网站：<a href="http://xuewei.world/">莫提</a>
+
 											</p>
 											<p>
-												bilibili：<a href="https://space.bilibili.com/301320288">我是莫提</a>
-											</p>
-											<p>
-												微信公众号：
-												<img style="width: 50%" src="img/wechat.jpg" alt="">
 											</p>
 										</div>
 									</div>
@@ -139,7 +134,7 @@
 					<div class="col-12 col-md-6 col-lg-6">
 						<div class="card">
 							<div class="card-header">
-								<h4>莫提网盘，只为给你带来最纯粹的体验！</h4>
+								<h4>风间网盘，只为给你带来最纯粹的体验！</h4>
 							</div>
 							<div class="card-body">
 								<div class="active" data-tab-group="carousel" id="carousel-caption">
@@ -193,7 +188,7 @@
 				</div>
 			</section>
 		</div>
-		<div th:replace="commons/bar::#footer"></div>
+		{{template "menu-footer"}}
 	</div>
 </div>
 <script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>

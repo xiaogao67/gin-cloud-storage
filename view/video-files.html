@@ -32,8 +32,8 @@
 <div id="app">
 	<div class="main-wrapper">
 		<div class="navbar-bg"></div>
-		{{template "menu-top"}}
-		{{template "menu-sidebar"}}
+		{{template "menu-top" .}}
+		{{template "menu-sidebar" .}}
 		<div class="main-content">
 			<section class="section">
 				<h1 class="section-header">
@@ -42,53 +42,99 @@
 				<div class="row" style="margin-top: -10px;">
 						<div class="col-12 col-sm-12 col-lg-12 table-responsive">
 							<table class="table tab-bordered text-nowrap" id="files-table">
-								<tr id="files-table-title" class="empty-space" th:if="${files.size() > 0}">
-									<th></th>
-									<th>名称</th>
-									<th>类型</th>
-									<th>扩展名</th>
-									<th>大小</th>
-									<th>下载次数</th>
-									<th>上传时间</th>
-								</tr>
-								<tr th:each="f:${files}" class="files-items files">
-									<td><span style="display: none" th:text="${f.myFileId}"></span>
-										<i style="font-size: 24px;color: #3498db" th:if="${f.type == 1}" class="icon ion-document-text"></i>
-										<i style="font-size: 24px;color: #28a745" th:if="${f.type == 2}" class="icon ion-image"></i>
-										<i style="font-size: 24px;color: #FFC107" th:if="${f.type == 3}" class="icon ion-ios-videocam"></i>
-										<i style="font-size: 24px;color: #dc3545" th:if="${f.type == 4}" class="icon ion-ios-musical-notes"></i>
-										<i style="font-size: 24px;color: #343A40" th:if="${f.type == 5}" class="icon ion-document"></i>
-									</td>
-									<td>
-										<a th:href="@{/downloadFile(fId=${f.getMyFileId()})}" style="font-weight: 700;color: black" th:text="${f.myFileName}"></a>
-									</td>
-									<td style="font-weight: 300" th:if="${f.type == 1}">文档</td>
-									<td style="font-weight: 300" th:if="${f.type == 2}">图像</td>
-									<td style="font-weight: 300" th:if="${f.type == 3}">视频</td>
-									<td style="font-weight: 300" th:if="${f.type == 4}">音乐</td>
-									<td style="font-weight: 300" th:if="${f.type == 5}">其他</td>
-									<td style="font-weight: 300" th:text="${f.postfix}"></td>
-									<td style="font-weight: 300" th:if="${f.size > 1024}" th:text="${f.size/1024 +'MB'}"></td>
-									<td style="font-weight: 300" th:if="${f.size < 1024}" th:text="${f.size +'KB'}"></td>
-									<td style="font-weight: 300" th:text="${f.downloadTime} + ' 次'"></td>
-									<td style="font-weight: 300" th:text="${#dates.format(f.uploadTime,'yyyy-MM-dd HH:mm')}">2020-02-02 15:08</td>
-								</tr>
+								{{if ne .videoCount 0}}
+									<tr id="files-table-title" class="empty-space">
+										<th></th>
+										<th>名称</th>
+										<th>类型</th>
+										<th>扩展名</th>
+										<th>大小</th>
+										<th>下载次数</th>
+										<th>上传时间</th>
+									</tr>
+								{{end}}
+								{{range .videoFiles}}
+									<tr class="files-items files">
+										<td><span style="display: none">{{.Id}}</span>
+											{{if eq .Type 1}}
+												<i style="font-size: 24px;color: #3498db"
+												   class="icon ion-document-text"></i>
+											{{end}}
+
+											{{if eq .Type 2}}
+												<i style="font-size: 24px;color: #28a745"
+												   class="icon ion-image"></i>
+											{{end}}
+
+											{{if eq .Type 3}}
+												<i style="font-size: 24px;color: #FFC107"
+												   class="icon ion-ios-videocam"></i>
+											{{end}}
+
+											{{if eq .Type 4}}
+												<i style="font-size: 24px;color: #dc3545"
+												   class="icon ion-ios-musical-notes"></i>
+											{{end}}
+
+											{{if eq .Type 5}}
+												<i style="font-size: 24px;color: #343A40"
+												   class="icon ion-document"></i>
+											{{end}}
+										</td>
+										<td>
+											<a href="/downloadFile?fId={{.Id}}"
+											   style="font-weight: 700;color: black">{{.FileName}}</a>
+										</td>
+										{{if eq .Type 1}}
+											<td style="font-weight: 300">文档</td>
+										{{end}}
+
+										{{if eq .Type 2}}
+											<td style="font-weight: 300">图像</td>
+										{{end}}
+
+										{{if eq .Type 3}}
+											<td style="font-weight: 300">视频</td>
+										{{end}}
+
+										{{if eq .Type 4}}
+											<td style="font-weight: 300">音乐</td>
+										{{end}}
+
+										{{if eq .Type 5}}
+											<td style="font-weight: 300">其他</td>
+										{{end}}
+										<td style="font-weight: 300">{{.Postfix}}</td>
+
+										{{if gt .Size 1048576}}
+											<td style="font-weight: 300">{{.SizeStr }}</td>
+										{{else}}
+											<td style="font-weight: 300">{{.SizeStr}}</td>
+										{{end}}
+
+
+										<td style="font-weight: 300">{{.DownloadNum}}次</td>
+										<td style="font-weight: 300">{{.UploadTime}}</td>
+									</tr>
+								{{end}}
 							</table>
 						</div>
 					</div>
-				<div class="row" th:if="${files.size() == 0}">
-					<div class="col-12 col-sm-12 col-lg-12">
-						<div class="alert alert-primary alert-has-icon alert-dismissible show fade">
-							<div class="alert-icon"><i class="ion ion-ios-lightbulb-outline"></i></div>
-							<div class="alert-body">
-								<button class="close" data-dismiss="alert">
-									<span>×</span>
-								</button>
-								<div class="alert-title">这里空空的，什么都没有..</div>
+				{{if eq .videoCount 0}}
+					<div class="row">
+						<div class="col-12 col-sm-12 col-lg-12">
+							<div class="alert alert-primary alert-has-icon alert-dismissible show fade">
+								<div class="alert-icon"><i class="ion ion-ios-lightbulb-outline"></i></div>
+								<div class="alert-body">
+									<button class="close" data-dismiss="alert">
+										<span>×</span>
+									</button>
+									<div class="alert-title">这里空空的，什么都没有..</div>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
+				{{end}}
 			</section>
 			<span id="tarFile" style="display: none"></span>
 		</div>
@@ -98,6 +144,7 @@
 <script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
 <script>
 	$(function () {
+		$(".menu-dropdown").css("display", "block");
 		$('.files').dblclick(function () {
 			let id = $(this).children("td").children("span").html();
 			var location = window.location.href;

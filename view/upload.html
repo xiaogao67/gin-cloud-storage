@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no"
           name="viewport">
-    <title>莫提网盘-上传文件</title>
-    <link rel="shortcut icon" href="/static/img/yun.png" />
+    <title>风间网盘-上传文件</title>
+    <link rel="shortcut icon" href="/static/img/yun.png"/>
     <link rel="stylesheet" href="/static/u-admin/dist/modules/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/static/u-admin/dist/modules/ionicons/css/ionicons.min.css">
     <link rel="stylesheet"
@@ -36,13 +36,13 @@
 <div id="app">
     <div class="main-wrapper">
         <div class="navbar-bg"></div>
-        {{template "menu-top"}}
-        {{template "menu-sidebar"}}
+        {{template "menu-top" .}}
+        {{template "menu-sidebar" .}}
         <div class="main-content">
             <section class="section">
                 <h1 class="section-header">
-                    <div><i class="ion ion-folder"></i> 上传文件 <span style="color: red;font-size: 14px"
-                                                                   th:if="${error != null}" th:text="${error}"></span>
+                    <div><i class="ion ion-folder"></i> 上传文件
+                        <span style="color: red;font-size: 14px"></span>
                     </div>
                 </h1>
                 <div class="row">
@@ -52,29 +52,43 @@
                                 <h4>当前路径</h4>
                                 <nav aria-label="breadcrumb" class="empty-space">
                                     <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a
-                                                    th:href="@{/upload(fId=${nowFolder.fileFolderId})}"
-                                                    title="刷新"><i
+                                        <li class="breadcrumb-item">
+                                            <a href="/cloud/upload/?fId={{.fId}}" title="刷新"><i
                                                         class="icon ion-refresh"></i></a>
                                         </li>
-                                        <li th:class="${nowFolder.fileFolderId == 0?'breadcrumb-item active':'breadcrumb-item'}">
-                                                            <span th:if="${nowFolder.fileFolderId == 0}"
-                                                                  th:text="根目录"></span><a style="font-weight: bold"
-                                                                                          th:if="${nowFolder.fileFolderId != 0}"
-                                                                                          href="upload">根目录</a></li>
-                                        <li th:each="l:${location}" class="breadcrumb-item"><a
-                                                    style="font-weight: bold"
-                                                    th:href="@{/upload(fId=${l.fileFolderId},fName=${l.fileFolderName})}"
-                                                    th:text="${l.fileFolderName}"></a></li>
-                                        <li th:if="${nowFolder.fileFolderId != 0}"
-                                            class="breadcrumb-item active" aria-current="page"
-                                            th:text="${nowFolder.fileFolderName}"></li>
-                                        <li th:if="${nowFolder.fileFolderId != 0}"
-                                            class="breadcrumb-item"><a
-                                                    th:href="@{/upload(fId=${nowFolder.parentFolderId})}"
-                                                    title="返回上一层"><i
-                                                        class="icon ion-arrow-return-left"></i></a>
+                                        <li class="breadcrumb-item active">
+                                            {{if eq .fId 0}}
+                                                <span>根目录 &nbsp /</span>
+                                            {{else}}
+                                                <span></span>
+                                                <a style="font-weight: bold" href="/cloud/upload">根目录</a>
+                                            {{end}}
+
                                         </li>
+
+                                        {{range .currentAllParent}}
+                                            <li class="breadcrumb-item">
+                                                <a style="font-weight: bold"
+                                                   href="/cloud/upload?fId={{.Id}}&fName={{.FileFolderName}}">
+                                                    {{.FileFolderName}}
+                                                </a>
+                                            </li>
+                                        {{end}}
+
+                                        {{if ne .fId 0}}
+                                            <li class="breadcrumb-item action" aria-current="page">
+                                                {{.fName}}
+                                            </li>
+                                        {{end}}
+
+                                        {{if ne .fId 0}}
+                                            <li class="breadcrumb-item">
+                                                <a href="/cloud/upload?fId={{.parentFolder.ParentFolderId}}"
+                                                   title="返回上一层">
+                                                    <i class="icon ion-arrow-return-left"></i>
+                                                </a>
+                                            </li>
+                                        {{end}}
                                     </ol>
                                 </nav>
                             </div>
@@ -92,18 +106,22 @@
                                 <div class="row" style="margin-top: -10px;">
                                     <div class="col-12 col-sm-12 col-lg-12 table-responsive">
                                         <table class="table tab-bordered text-nowrap" id="files-table">
-                                            <tr th:each="folder:${folders}" class="files-items folders">
-                                                <td><span style="display: none" th:text="${folder.fileFolderId}"></span><i
-                                                            style="font-size: 24px;color: orange"
-                                                            class="icon ion-android-folder"></i></td>
-                                                <td>
-                                                    <a th:href="@{/upload(fId=${folder.fileFolderId},fName=${folder.fileFolderName})}"
-                                                       style="font-weight: 700;color: black"
-                                                       th:text="${folder.fileFolderName}"></a>
-                                                </td>
-                                                <td style="font-weight: 300"
-                                                    th:text="${#dates.format(folder.time,'yyyy-MM-dd HH:mm')}"></td>
-                                            </tr>
+                                            {{range .fileFolders}}
+                                                <tr class="files-items folders">
+                                                    <td><span style="display: none">{{.Id}}</span>
+                                                        <i style="font-size: 24px;color: orange"
+                                                           class="icon ion-android-folder"></i>
+                                                    </td>
+                                                    <td>
+                                                        <a href="/cloud/upload?fId={{.Id}}&fName={{.FileFolderName}}" style="font-weight: 700;color: black">
+                                                            {{.FileFolderName}}
+                                                        </a>
+                                                    </td>
+                                                    <td style="font-weight: 300">
+                                                        {{.Time}}
+                                                    </td>
+                                                </tr>
+                                            {{end}}
                                         </table>
                                     </div>
                                 </div>
@@ -112,7 +130,7 @@
                     </div>
                 </div>
             </section>
-            <span id="nowF" style="display: none" th:text="${nowFolder.fileFolderId}"></span>
+            <span id="nowF" style="display: none">{{.fId}}</span>
             <span id="preF" style="display: none" th:text="${nowFolder.parentFolderId}"></span>
             <span id="tarFolder" style="display: none"></span>
         </div>

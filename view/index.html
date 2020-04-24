@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" name="viewport">
-	<title>莫提网盘-使用情况</title>
+	<title>风间网盘-使用情况</title>
 	<link rel="shortcut icon" href="/static/img/yun.png" />
 	<link rel="stylesheet" href="/static/u-admin/dist/modules/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" href="/static/u-admin/dist/modules/ionicons/css/ionicons.min.css">
@@ -19,8 +19,8 @@
 <div id="app">
 	<div class="main-wrapper">
 		<div class="navbar-bg"></div>
-		{{template "menu-top"}}
-		{{template "menu-sidebar"}}
+		{{template "menu-top" .}}
+		{{template "menu-sidebar" .}}
 		<div class="main-content">
 			<section class="section">
 				<h1 class="section-header">
@@ -38,7 +38,7 @@
 										<div class="card-header">
 											<h4>文件夹</h4>
 										</div>
-										<div class="card-body">1</div>
+										<div class="card-body">{{.fileFolderCount}}</div>
 									</div>
 								</div>
 							</div>
@@ -51,7 +51,7 @@
 										<div class="card-header">
 											<h4>文件</h4>
 										</div>
-										<div class="card-body">1</div>
+										<div class="card-body">{{.fileCount}}</div>
 									</div>
 								</div>
 							</div>
@@ -118,8 +118,8 @@
 <script src="/static/u-admin/dist/modules/jquery.min.js"></script>
 <script>
 	$(function () {
-		var cur = [[${statistics.fileStore.currentSize}]];
-		var max = [[${statistics.fileStore.maxSize}]];
+		var cur = {{.userFileStore.CurrentSize}};
+		var max = {{.userFileStore.MaxSize}};
 		var w = cur/max*100;
 		$('#progress').css('width',w+'%');
 	})
@@ -145,11 +145,11 @@
 		data: {
 			datasets: [{
 				data: [
-					1,
-					2,
-					3,
-					4,
-					5,
+					{{.fileDetailUse.docCount}},
+					{{.fileDetailUse.imgCount}},
+					{{.fileDetailUse.videoCount}},
+					{{.fileDetailUse.musicCount}},
+					{{.fileDetailUse.otherCount}},
 				],
 				backgroundColor: [
 					'#3498db',
@@ -184,8 +184,8 @@
 		data: {
 			datasets: [{
 				data: [
-					10000/1024,
-					1024000/1024,
+					Math.round({{.userFileStore.CurrentSize}}/1024),
+					Math.round({{.userFileStore.MaxSize}}/1024),
 				],
 				backgroundColor: [
 					'#223e36',

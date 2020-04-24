@@ -25,8 +25,7 @@ func InitDB(conf lib.ServerConfig) {
 
 	// 全局禁用表名复数
 	DB.SingularTable(true)
-	//启用Logger，显示详细日志，默认情况下会打印发生的错误
-	DB.LogMode(true)
+
 	gorm.DefaultTableNameHandler = func(db *gorm.DB, defaultTableName string) string {
 		return conf.TablePrefix + defaultTableName
 	}

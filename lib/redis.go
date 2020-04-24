@@ -22,10 +22,6 @@ func init() {
 			if err != nil {
 				return nil, err
 			}
-			if _, err := c.Do("AUTH", config.RedisPass); err != nil {
-				_ = c.Close()
-				return nil, err
-			}
 			if _, err := c.Do("SELECT", config.RedisIndex); err != nil {
 				_ = c.Close()
 				return nil, err

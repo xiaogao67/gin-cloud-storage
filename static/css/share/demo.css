@@ -1,0 +1,135 @@
+/**
+ * demo.css
+ * https://coidea.website
+ *
+ * Licensed under the MIT license.
+ * http://www.opensource.org/licenses/mit-license.php
+ * 
+ * Copyright 2018, COIDEA
+ * https://coidea.website
+ */
+
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,900');
+html,
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+html {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background-color: #EDF0F9;
+  min-height: 100vh;
+  font-family: Roboto, Arial;
+  color: #ADAFB6;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+body .error-message {
+  width: 222px;
+  position: relative;
+  text-align: center;
+  padding: 16px 0;
+  font-size: 14px;
+  font-weight: 700;
+  opacity: 0;
+}
+body .error-message span {
+  color: #FFFFFF;
+  letter-spacing: 1px;
+}
+body .password-holder {
+  width: 222px;
+  background: #fff;
+  position: relative;
+  padding: 16px 0 5px 0;
+  border-radius: 6px;
+}
+body .password-holder input {
+  width: 100%;
+  border: 0;
+  outline: none;
+  line-height: 20px;
+  font-size: 16px;
+  padding: 9px 40px 0 16px;
+  font-family: inherit;
+  background: none;
+  color: #151924;
+}
+body .password-holder input:valid + label, body .password-holder input:focus + label {
+  transform: translate(0, -4px) scale(0.72);
+}
+body .password-holder input:valid + label + .unlock, body .password-holder input:focus + label + .unlock {
+  opacity: 1;
+}
+body .password-holder label {
+  position: absolute;
+  z-index: 1;
+  left: 16px;
+  top: 50%;
+  line-height: 24px;
+  font-size: 16px;
+  margin: -12px 0 0 0;
+  cursor: text;
+  transform-origin: top left;
+  transition: all 0.3s ease;
+}
+body .password-holder .unlock {
+  position: absolute;
+  z-index: 2;
+  stroke: none;
+  fill: #3F4656;
+  display: block;
+  width: 12px;
+  height: 16px;
+  right: 16px;
+  top: 50%;
+  opacity: 0.1;
+  cursor: pointer;
+  transform: translate(0, -50%);
+  transition: opacity 0.4s ease;
+}
+body .password-holder .error {
+  position: absolute;
+  right: 0;
+  bottom: 4px;
+  display: block;
+  width: 16px;
+  height: 14px;
+  opacity: 0;
+  stroke: none;
+  z-index: 5;
+  fill: #EDF0F9;
+  transform: scale(0.4);
+  transition: all 0.3s ease;
+}
+body .password-holder:before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  border-style: solid;
+  border-width: 0 0 0 0;
+  z-index: 4;
+  border-color: #fff #EDF0F9;
+  transition: all 0.3s ease 0.35s;
+}
+body .password-holder.false:before {
+  border-width: 38px 32px 0 0;
+  border-color: #3F4656 #E74C3C;
+  border-radius: 6px 0 0 0;
+  transition-delay: 0s;
+  box-shadow: -3px -3px 7px rgba(0, 0, 0, 0.075);
+}
+body .password-holder.false .error {
+  opacity: 1;
+  transform: scale(1);
+  transition: transform 0.4s cubic-bezier(0.87, -0.41, 0.19, 1.44) 0.35s, opacity 0.3s ease 0.45s;
+}

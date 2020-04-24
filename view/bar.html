@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+
 {{define "menu-top"}}
 <nav class="navbar navbar-expand-lg main-navbar" id="top">
     <form class="form-inline mr-auto">
@@ -19,13 +13,13 @@
     <ul class="navbar-nav navbar-right">
         <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg">
             <i class="ion ion-android-person d-lg-none"></i>
-            <div class="d-sm-none d-lg-inline-block">你好，</div>
+            <div class="d-sm-none d-lg-inline-block">你好，{{.user.UserName}}</div>
         </a>
             <div class="dropdown-menu dropdown-menu-right">
-                <a href="logout" th:href="@{/help}" class="dropdown-item has-icon">
+                <a href="/help" class="dropdown-item has-icon">
                     <i class="ion ion-help-buoy"></i> 使用帮助
                 </a>
-                <a href="logout" th:href="@{/logout}" class="dropdown-item has-icon">
+                <a href="/cloud/logout" class="dropdown-item has-icon">
                     <i class="ion ion-log-out"></i> 退出登录
                 </a>
             </div>
@@ -38,14 +32,14 @@
 <div class="main-sidebar" id="sidebar">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
-            <a href="index">莫提网盘</a>
+            <a href="/index">风间网盘</a>
         </div>
         <div class="sidebar-user">
             <div class="sidebar-user-picture">
-                <a><img style="width: 50px;height: 50px" alt="image" th:src="${session.loginUser.imagePath}" src="u-admin/dist/img/avatar/avatar-1.jpeg"></a>
+                <a><img style="width: 50px;height: 50px" alt="image" src="{{.user.ImagePath}}"></a>
             </div>
             <div class="sidebar-user-details">
-                <div class="user-name" th:text="${session.loginUser.userName}">莫提</div>
+                <div class="user-name">{{.user.UserName}}</div>
                 <div class="user-role">
                     普通用户
                 </div>
@@ -53,52 +47,52 @@
         </div>
         <ul class="sidebar-menu">
             <li class="menu-header">预览</li>
-            <li th:class="${currUri == 'index'?'active':''}">
+            <li class="{{.currIndex}}">
                 <a href="/cloud/index"><i class="ion ion-speedometer"></i><span>使用情况</span></a>
             </li>
             <li class="menu-header">所有文件</li>
-            <li th:class="${currUri == 'all'?'active':''}">
+            <li class="{{.currAll}}">
                 <a href="/cloud/files"><i class="ion ion-folder"></i> 全部文件</a>
             </li>
-            <li th:class="${currUri == 'upload'?'active':''}">
+            <li class="{{.currUpload}}">
                 <a href="/cloud/upload"><i class="ion ion-upload"></i> 上传文件</a>
             </li>
 
-            <li th:class="${currUri == 'doc' or currUri == 'image' or currUri == 'video' or currUri == 'music' or currUri == 'other'?'active':''}">
+            <li class="{{.currClass}}">
                 <a href="#" class="has-dropdown"><i class="ion ion-cube"></i><span>分类文件</span></a>
                 <ul class="menu-dropdown">
-                    <li th:class="${currUri == 'doc'?'active':''}">
+                    <li class="{{.currDoc}}">
                         <a href="/cloud/doc-files"><i class="ion ion-document-text"></i> 我的文档
-                            <div th:text="${statistics.doc}" class="badge badge-primary">10</div>
+                            <div text="{{.docNum}}" class="badge badge-primary">{{.fileDetailUse.docCount}}</div>
                         </a>
                     </li>
-                    <li th:class="${currUri == 'image'?'active':''}">
+                    <li class="{{.currImg}}">
                         <a href="/cloud/image-files"><i class="ion ion-image"></i> 我的图像
-                            <div th:text="${statistics.image}" class="badge badge-primary">10</div>
+                            <div text="{{.imgNum}}" class="badge badge-primary">{{.fileDetailUse.imgCount}}</div>
                         </a>
                     </li>
-                    <li th:class="${currUri == 'video'?'active':''}">
+                    <li class="{{.currVideo}}">
                         <a href="/cloud/video-files"><i class="ion ion-ios-videocam"></i> 我的视频
-                            <div th:text="${statistics.video}" class="badge badge-primary">10</div>
+                            <div text="{{.videoNum}}" class="badge badge-primary">{{.fileDetailUse.videoCount}}</div>
                         </a>
                     </li>
-                    <li th:class="${currUri == 'music'?'active':''}">
+                    <li class="{{.currMusic}}">
                         <a href="/cloud/music-files"><i class="ion ion-ios-musical-notes"></i> 我的音频
-                            <div th:text="${statistics.music}" class="badge badge-primary">10</div>
+                            <div text="{{.musicNum}}" class="badge badge-primary">{{.fileDetailUse.musicCount}}</div>
                         </a>
                     </li>
-                    <li th:class="${currUri == 'other'?'active':''}">
+                    <li class="{{.currOther}}">
                         <a href="/cloud/other-files"><i class="ion ion-help-circled"></i> 其他文件
-                            <div th:text="${statistics.other}" class="badge badge-primary">10</div>
+                            <div text="{{.otherNum}}" class="badge badge-primary">{{.fileDetailUse.otherCount}}</div>
                         </a>
                     </li>
                 </ul>
             </li>
-            <li th:class="${currUri == 'help'?'active':''}">
+            <li class="{{.currHelp}}">
                 <a href="help"><i class="ion ion-help-buoy"></i> 帮助</a>
             </li>
             <div class="p-3 mt-4 mb-4">
-                <a  th:href="@{/logout}" href="#" class="btn btn-danger btn-shadow btn-round has-icon has-icon-nofloat btn-block">
+                <a  href="/cloud/logout" class="btn btn-danger btn-shadow btn-round has-icon has-icon-nofloat btn-block">
                     <i class="ion ion-log-out"></i>
                     <div>退出登录</div>
                 </a>
@@ -116,6 +110,3 @@
     <div class="footer-right"></div>
 </footer>
 {{end}}
-
-</body>
-</html>

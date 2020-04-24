@@ -1,0 +1,103 @@
+@import url('https://fonts.googleapis.com/css?family=Abril+Fatface|Raleway:300,400,900');
+
+/* Header */
+.coidea-header {
+    position: fixed;
+    display: block;
+    width: 96%;
+    width: calc( 100% - 32px );
+    height: 40px;
+    margin: 0 auto;
+    color: #222222;
+    text-align: center;
+    top: 16px; right: 16px; left: 16px;
+    z-index: 1000;
+}
+
+.coidea-header .coidea-links .coidea-icon-back {
+    position: absolute;
+    display: block;
+    width: 24px;
+    height: 24px;
+    padding: 7px;
+    color: rgba(34,34,34,0.75);
+    font-size: 32px;
+    line-height: 34px;
+    font-weight: 900;
+    font-family: 'Raleway', sans-serif;
+    text-decoration: none;
+    outline: 0px none;
+    outline: 0px;
+    transition: all .3s ease;
+    top: 0;
+    left: 0;
+    z-index: 2;
+}
+
+.coidea-header .coidea-links .coidea-icon-back::before {
+    content: '';
+    position: absolute;
+    display: block;
+    width: 34px;
+    height: 34px;
+    top: 7px;
+    left: 20px;
+    border-radius: 8px;
+    background-color: rgba(34,34,34,.35);
+}
+
+.coidea-header .coidea-links .coidea-icon-back:hover {
+    color: rgba(34,34,34,1);
+}
+
+.coidea-header .coidea-links .coidea-icon-github {
+    position: absolute;
+    display: block;
+    width: 24px;
+    height: 24px;
+    padding: 7px;
+    color: rgba(34,34,34,0.75);
+    font-size: 32px;
+    line-height: 34px;
+    font-weight: 900;
+    font-family: 'Raleway', sans-serif;
+    text-decoration: none;
+    outline: 0px none;
+    outline: 0px;
+    transition: all .3s ease;
+    top: 0;
+    right: 0;
+    z-index: 2;
+}
+
+.coidea-header .coidea-links .coidea-icon-github::before {
+    content: '';
+    position: absolute;
+    display: block;
+    width: 34px;
+    height: 34px;
+    top: 7px;
+    right: 20px;
+    border-radius: 8px;
+    background-color: rgba(34,34,34,.35);
+}
+
+.coidea-header .coidea-links .coidea-icon-github:hover {
+    color: rgba(34,34,34,1);
+}
+
+.coidea-header .coidea-links .coidea-header {
+    font-family: 'Raleway', sans-serif;
+    display: inline-block;
+	font-size: 14px;
+	font-weight: 300;
+	margin: 0;
+    padding: 17px 0;
+    z-index: 1;
+}
+
+@media screen and (max-width: 360px) {
+    .coidea-header .coidea-links .coidea-header {
+        font-size: 12px; 
+    }
+}

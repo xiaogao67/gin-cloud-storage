@@ -18,7 +18,7 @@ func main() {
 	r.Static("/static", "./static")
 
 
-	if err := r.Run(); err != nil {
+	if err := r.Run(":80"); err != nil {
 		log.Fatal("服务器启动失败...")
 	}
 }
