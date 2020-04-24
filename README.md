@@ -24,20 +24,20 @@ go run main.go
 
 1. 使用情况
 
-   ![status](/xiaogao67/gin-cloud-storage/static/git_img/status.png)
+   ![status](/static/git_img/status.png)
 
 2. 全部文件
 
-   ![all](/xiaogao67/gin-cloud-storage/static/git_img/all.png)
+   ![all](/static/git_img/all.png)
 
 3. 上传文件
 
-   ![upload](/xiaogao67/gin-cloud-storage/static/git_img/upload.png)
+   ![upload](/static/git_img/upload.png)
 
 4. 分类文件
 
-   ![classify](/xiaogao67/gin-cloud-storage/static/git_img/classify.png)
+   ![classify](/static/git_img/classify.png)
 
 5. 帮助
 
-   ![help](/xiaogao67/gin-cloud-storage/static/git_img/help.png)
+   ![help](/static/git_img/help.png)
